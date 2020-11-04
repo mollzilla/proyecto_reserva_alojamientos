@@ -1,13 +1,14 @@
 import React from "react";
 import "./styles.css";
-import { hotelsData } from "./data";
+import { hotelsData } from "../public/data";
 import Header from "./Header";
 import HotelCard from "./HotelCard";
 
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+// import Container from "@material-ui/core/Container";
+import { Container } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+// import Grid from "@material-ui/core/Grid";
 
-console.log(33, hotelsData);
 class HotelContainer extends React.Component {
   /// hotel Container recibe como props data y al ser el padre es la unica fuente de la verdad, de ahi la pasa al header y al grid
 
@@ -16,15 +17,15 @@ class HotelContainer extends React.Component {
     since: new Date(),
     until: new Date(),
     country: "any",
-    price: null,
+    price: "any",
     size: "any",
     hotelsData: hotelsData,
     selectedHotels: null
   };
 
-  // const handleFieldChange = (name, value) => {
-  // setModalItem({ ...modalItem, [name]: value });
-  // };
+  handleFieldChange = (name, value) => {
+    this.setState({ ...this.state, [name]: value });
+  };
 
   //    today = new Date()
   // const tomorrow = new Date(today)
@@ -49,35 +50,17 @@ class HotelContainer extends React.Component {
     }
   };
 
-  handleCountryChange = (country) => {
-    this.setState({
-      country: country
-    });
-  };
-
-  handlePriceChange = (price) => {
-    this.setState({
-      price: price
-    });
-  };
-
-  handleSizeChange = (size) => {
-    this.setState({
-      size: size
-    });
-  };
-
   getHotelsFilter = () => {};
 
   render() {
     // console.log(this.props.data)
-    console.log(this.state.country);
+    console.log(this.state);
     // console.log(hotelsData);
     return (
       <Container>
         <Header
+          handleFieldChange={this.handleFieldChange}
           handleDateChange={this.handleDateChange}
-          handlePriceChange={this.handlePriceChange}
           handleSizeChange={this.handleSizeChange}
           handleCountryChange={this.handleCountryChange}
           since={this.state.since}

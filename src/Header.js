@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { FormControl } from "@material-ui/core";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
+// import InputLabel from "@material-ui/core/InputLabel";
+import { InputLabel } from "@material-ui/core";
+// import MenuItem from "@material-ui/core/MenuItem";
+import { MenuItem } from "@material-ui/core";
+import { Select } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+// import Select from "@material-ui/core/Select";
+// import TextField from "@material-ui/core/TextField";
+// import { makeStyles } from "@material-ui/core/styles";
+// import Box from "@material-ui/core/Box";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 
 function Header(props) {
@@ -14,13 +19,15 @@ function Header(props) {
     handleCountryChange,
     handlePriceChange,
     handleSizeChange,
+    handleFieldChange,
     since,
     until,
     today,
     price,
-    country
+    country,
+    size
   } = props;
-
+  console.log(this.props);
   const daysOfWeek = [
     "Lunes",
     "Martes",
@@ -66,7 +73,6 @@ function Header(props) {
         months[since.getMonth()]
       } de ${since.getFullYear()}`;
     } else {
-      console.log(since, until);
       return `Cualquier fecha`;
     }
   };
@@ -123,7 +129,7 @@ function Header(props) {
               defaultValue={"any"}
               value={country}
               onChange={(e) => {
-                handleCountryChange(e.target.value);
+                handleFieldChange("country", e.target.value);
               }}
             >
               <MenuItem value={"any"}>Todos los países</MenuItem>
@@ -141,7 +147,7 @@ function Header(props) {
               displayEmpty={true}
               defaultValue={"any"}
               value={price}
-              onChange={(e) => handlePriceChange(e.target.value)}
+              onChange={(e) => handleFieldChange("price", e.target.value)}
             >
               <MenuItem value={"any"}>Cualquier Precio</MenuItem>
               <MenuItem value={1}>
@@ -173,7 +179,8 @@ function Header(props) {
               id="demo-simple-select"
               displayEmpty={true}
               defaultValue={"any"}
-              onChange={(e) => handleSizeChange(e.target.value)}
+              value={size}
+              onChange={(e) => handleFieldChange("size", e.target.value)}
             >
               <MenuItem value={"any"}>Cualquier tamaño</MenuItem>
               <MenuItem value={"small"}>Pequeño</MenuItem>
