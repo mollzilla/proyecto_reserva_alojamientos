@@ -1,0 +1,86 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+.header {
+  padding: 60px 120px;
+}
+
+.params-header {
+  padding: 10px 120px;
+  justify-content: space-evenly;
+}
+
+.params-form {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.date-picker {
+  color: #fff;
+}
+
+.country-picker {
+  width: 150px;
+}
+
+.reservar {
+  width: 100%;
+  background-color: #209cee;
+}
+
+.info-paper {
+  padding: 8px;
+  margin: 8px;
+}
+
+.money {
+  font-size: 1.25rem;
+}
+
+.next-to-icon {
+  margin-right: 8px;
+}
+
+.money {
+  height: 1rem;
+}
+
+.filters-text {
+  margin-left: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.envoltorio {
+  border: 1px solid gainsboro;
+  width: max-content;
+  background-color: white;
+  padding: 0.2rem;
+  border-radius: 5px;
+}
+.input-icon {
+  color: gainsboro;
+  margin-right: 10px;
+}
+
+.envoltorio input,
+.envoltorio select {
+  border: none;
+}
