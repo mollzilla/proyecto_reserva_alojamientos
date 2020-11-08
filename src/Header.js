@@ -16,18 +16,16 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 function Header(props) {
   const {
     handleDateChange,
-    handleCountryChange,
-    handlePriceChange,
-    handleSizeChange,
     handleFieldChange,
     since,
     until,
     today,
+    tomorrow,
     price,
     country,
     size
   } = props;
-  console.log(this.props);
+
   const daysOfWeek = [
     "Lunes",
     "Martes",
@@ -51,11 +49,9 @@ function Header(props) {
     "Noviembre",
     "Diciembre"
   ];
-  const hoy = new Date().toLocaleDateString().substring(0, 10);
 
   const getDateString = (since, until) => {
     if (since && until) {
-      console.log(since, until);
       return `Desde el ${daysOfWeek[since.getDay()]} ${since.getDate()} ${
         months[since.getMonth()]
       } de ${since.getFullYear()} hasta  el ${
@@ -64,7 +60,6 @@ function Header(props) {
         months[until.getMonth()]
       } de ${until.getFullYear()}`;
     } else if (since) {
-      console.log(since, until);
       return `Desde el ${daysOfWeek[since.getDay()]} ${since.getDate()} ${
         months[since.getMonth()]
       } de ${since.getFullYear()} hasta  el ${
@@ -77,6 +72,10 @@ function Header(props) {
     }
   };
 
+  const getDateValue = (date) => {
+    return date === "" ? "" : date.toISOString().substr(0, 10);
+  };
+
   return (
     <header>
       <Box className="header" color="white" bgcolor="#01d0b1">
@@ -86,27 +85,40 @@ function Header(props) {
       <Box className="params-header" color="white" bgcolor="#209CEE">
         <form className="params-form" noValidate>
           <TextField
+            style={{ fill: "white" }}
+            variant="outlined"
             id="since"
+            name="since"
             type="date"
-            inputProps={{ min: since.toISOString().substring(0, 10) }}
-            defaultValue={today}
+            inputProps={
+              ({ min: getDateValue(today) },
+              { style: { backgroundColor: "white" } })
+            }
             className={"date-picker"}
             InputLabelProps={{
               shrink: true
             }}
             format="dd/MM/YYYY"
             margin="dense"
-            // value={selectedDate}
+            // value={since.toISOString().substring(0, 10)}
+            value={getDateValue(since)}
             onChange={(e) => {
               handleDateChange("since", `${e.target.value}T00:00:00-03:00`);
             }}
           />
 
           <TextField
+            style={{ fill: "white" }}
+            variant="outlined"
             id="until"
+            name="until"
             type="date"
-            inputProps={{ min: since.toISOString().substring(0, 10) }}
-            // defaultValue={pickedSince}
+            inputProps={
+              ({
+                min: since === "" ? getDateValue(today) : getDateValue(since)
+              },
+              { style: { backgroundColor: "white" } })
+            } // pasarlo a tomorrow
             className={"date-picker"}
             InputLabelProps={{
               shrink: true
@@ -114,7 +126,7 @@ function Header(props) {
             }}
             format="dd/MM/yyyy"
             margin="dense"
-            // value={pickedSince}
+            value={getDateValue(until)}
             onChange={(e) => {
               handleDateChange("until", `${e.target.value}T00:00:00-03:00`);
             }}
@@ -122,6 +134,8 @@ function Header(props) {
 
           <FormControl className="country-picker" margin="dense">
             <Select
+              style={{ backgroundColor: "white" }}
+              variant="outlined"
               margin="dense"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -133,14 +147,17 @@ function Header(props) {
               }}
             >
               <MenuItem value={"any"}>Todos los países</MenuItem>
-              <MenuItem value={10}>Argentina</MenuItem>
-              <MenuItem value={20}>Uruguay</MenuItem>
-              <MenuItem value={30}>Brasil</MenuItem>
+              <MenuItem value={"Argentina"}>Argentina</MenuItem>
+              <MenuItem value={"Uruguay"}>Uruguay</MenuItem>
+              <MenuItem value={"Brasil"}>Brasil</MenuItem>
+              <MenuItem value={"Chile"}>Chile</MenuItem>
             </Select>
           </FormControl>
 
           <FormControl className="country-picker" margin="dense">
             <Select
+              style={{ backgroundColor: "white" }}
+              variant="outlined"
               margin="dense"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -174,6 +191,8 @@ function Header(props) {
           <FormControl className="price-picker" margin="dense">
             <InputLabel id="demo-simple-select-label"></InputLabel>
             <Select
+              style={{ backgroundColor: "white" }}
+              variant="outlined"
               margin="dense"
               labelId="demo-simple-select-label"
               id="demo-simple-select"

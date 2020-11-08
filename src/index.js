@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import hotelsData from "../public/data";
 
 import App from "./App";
 

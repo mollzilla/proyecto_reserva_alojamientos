@@ -38,7 +38,11 @@ h6 {
 
 .reservar {
   width: 100%;
-  background-color: #209cee;
+  color: white;
+  background-color: #01d0b1 !important;
+  text-transform: unset;
+  font-size: 1rem;
+  border-radius: 0;
 }
 
 .info-paper {
@@ -46,16 +50,21 @@ h6 {
   margin: 8px;
 }
 
+.money-paper {
+  background-color: #209cee;
+}
+
 .money {
   font-size: 1.25rem;
 }
 
-.next-to-icon {
-  margin-right: 8px;
+.stats-icons {
+  background-color: "#209cee";
+  padding: "5px";
 }
 
-.money {
-  height: 1rem;
+.next-to-icon {
+  margin-right: 8px;
 }
 
 .filters-text {

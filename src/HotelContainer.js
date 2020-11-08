@@ -1,9 +1,9 @@
 import React from "react";
 import "./styles.css";
-import { hotelsData } from "../public/data";
+import { hotelsData, today } from "../public/data";
 import Header from "./Header";
 import HotelCard from "./HotelCard";
-
+import EmptySearch from "./EmptySearch";
 // import Container from "@material-ui/core/Container";
 import { Container } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
@@ -12,36 +12,68 @@ import { Grid } from "@material-ui/core";
 class HotelContainer extends React.Component {
   /// hotel Container recibe como props data y al ser el padre es la unica fuente de la verdad, de ahi la pasa al header y al grid
 
+  tomorrow = new Date(today);
+  tomorrow = new Date(this.tomorrow.setDate(this.tomorrow.getDate() + 1));
+
   state = {
     cosas: "the single source of truth",
-    since: new Date(),
-    until: new Date(),
+    since: "",
+    until: "",
     country: "any",
     price: "any",
     size: "any",
-    hotelsData: hotelsData,
     selectedHotels: null
+  };
+
+  getSizeFilter = (x) => {
+    let sizeFilter = true;
+    if (this.state.size === "large") sizeFilter = x.rooms > 20;
+    else if (this.state.size === "medium")
+      sizeFilter = x.rooms > 10 && x.rooms < 21;
+    else if (this.state.size === "small") sizeFilter = x.rooms < 11;
+    return sizeFilter;
+  };
+
+  getHotelsFilter = () => {
+    return hotelsData.filter((x) => {
+      let priceFilter =
+        this.state.price !== "any" ? x.price === this.state.price : true;
+      let countryFilter =
+        this.state.country !== "any" ? x.country === this.state.country : true;
+      let sizeFilter = this.getSizeFilter(x);
+
+      return (
+        x.availabilityFrom > this.state.since.valueOf() &&
+        x.availabilityTo > this.state.until.valueOf() &&
+        priceFilter &&
+        countryFilter &&
+        sizeFilter
+      );
+    });
   };
 
   handleFieldChange = (name, value) => {
     this.setState({ ...this.state, [name]: value });
   };
 
-  //    today = new Date()
-  // const tomorrow = new Date(today)
-  // tomorrow.setDate(tomorrow.getDate() + 1)
-
   handleDateChange = (limit, value) => {
-    console.log(limit, value);
-    if (
-      limit === "since" &&
-      new Date(value).valueOf() > new Date(this.state.until).valueOf()
-    ) {
-      this.setState({
-        ...this.state,
-        [limit]: new Date(value),
-        until: new Date(value)
-      });
+    if (limit === "since") {
+      if (this.state.until === "") {
+        let until = new Date(value);
+        this.setState({
+          [limit]: new Date(value),
+          until: new Date(until.setDate(new Date(value).getDate() + 1))
+        });
+      } else if (
+        new Date(value).valueOf() > new Date(this.state.until).valueOf()
+      ) {
+        this.setState({
+          [limit]: new Date(value),
+          until: new Date(
+            this.state.until.setDate(new Date(value).getDate() + 1)
+          )
+        });
+      }
     } else {
       this.setState({
         ...this.state,
@@ -50,29 +82,29 @@ class HotelContainer extends React.Component {
     }
   };
 
-  getHotelsFilter = () => {};
-
   render() {
-    // console.log(this.props.data)
-    console.log(this.state);
-    // console.log(hotelsData);
     return (
       <Container>
         <Header
           handleFieldChange={this.handleFieldChange}
           handleDateChange={this.handleDateChange}
-          handleSizeChange={this.handleSizeChange}
-          handleCountryChange={this.handleCountryChange}
           since={this.state.since}
           until={this.state.until}
+          today={today}
+          tomorrow={this.tomorrow}
         />
 
         <Grid container spacing={8}>
-          {this.state.hotelsData.map((hotel, i) => (
+          {this.getHotelsFilter().map((hotel, i) => (
             <Grid item xs={12} sm={4} key={i}>
               <HotelCard hotel={hotel} key={i} />
             </Grid>
           ))}
+          {!this.getHotelsFilter().length && (
+            <Grid item xs={12}>
+              <EmptySearch />
+            </Grid>
+          )}
         </Grid>
       </Container>
     );

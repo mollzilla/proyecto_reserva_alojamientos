@@ -4,6 +4,7 @@ import "./styles.css";
 import { Card } from "@material-ui/core";
 // import CardActions from "@material-ui/core/CardActions";
 import { CardActions } from "@material-ui/core";
+// import { CardContent } from "@material-ui/CardContent";
 import CardContent from "@material-ui/core/CardContent";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -28,13 +29,12 @@ function HotelCard(props) {
     country,
     price
   } = props.hotel;
-
   return (
     <Card width="50">
       <CardActionArea>
         <Grid item xs={12}>
           <Paper className="info-paper" elevation={0}>
-            <img src={photo} alt="" />
+            <img src={photo} alt={slug} />
           </Paper>
         </Grid>
 
@@ -49,10 +49,16 @@ function HotelCard(props) {
         <Grid item xs={12}>
           <Paper
             className="info-paper"
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: "flex", alignItems: "center", padding: 0 }}
             elevation={2}
           >
-            <LocationOnIcon />
+            <LocationOnIcon
+              style={{
+                background: "#209cee",
+                padding: "5px 10px",
+                fill: "white"
+              }}
+            />
             <span className="filters-text">
               {city}, {country}
             </span>
@@ -63,36 +69,49 @@ function HotelCard(props) {
           <Grid item xs={7}>
             <Paper
               className="info-paper"
-              style={{ display: "flex", alignItems: "center" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "0 10px 0 0 "
+              }}
               elevation={2}
             >
-              <LocalHotelIcon />
+              <LocalHotelIcon
+                style={{
+                  background: "#209cee",
+                  padding: "5px 10px",
+                  fill: "white"
+                }}
+              />
               <span className="filters-text">
                 {rooms} {rooms > 1 ? " Habitaciones" : " Habitación"}
               </span>
             </Paper>
           </Grid>
-          <Grid item xs={5}>
-            <Paper className="info-paper" elevation={2}>
-              <AttachMoneyIcon fontSize="small" />
+          <Grid item xs={4}>
+            <Paper className="info-paper money-paper" elevation={2}>
               <AttachMoneyIcon
                 fontSize="small"
-                color={price > 1 ? "inherit" : "disabled"}
+                style={{ fill: "white", backgroundColor: "#209cee" }}
+              />
+              <AttachMoneyIcon
+                style={{ fill: price > 1 ? "white" : "#57B4F2" }}
+                fontSize="small"
               />
               <AttachMoneyIcon
                 fontSize="small"
-                color={price > 2 ? "inherit" : "disabled"}
+                style={{ fill: price > 2 ? "white" : "#57B4F2" }}
               />
               <AttachMoneyIcon
                 fontSize="small"
-                color={price > 3 ? "inherit" : "disabled"}
+                style={{ fill: price > 3 ? "white" : "#57B4F2" }}
               />
             </Paper>
           </Grid>
         </Grid>
       </CardActionArea>
       <CardActions>
-        <Button variant="contained" color="primary" className="reservar">
+        <Button variant="contained" className="reservar">
           Reservar
         </Button>
       </CardActions>
