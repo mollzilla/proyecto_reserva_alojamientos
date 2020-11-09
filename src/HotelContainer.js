@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import { hotelsData, today } from "../public/data";
+import { hotelsData, today } from "./data";
 import Header from "./Header";
 import HotelCard from "./HotelCard";
 import EmptySearch from "./EmptySearch";
