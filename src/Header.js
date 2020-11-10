@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormControl } from "@material-ui/core";
 // import InputLabel from "@material-ui/core/InputLabel";
 import { InputLabel } from "@material-ui/core";
@@ -20,7 +20,6 @@ function Header(props) {
     since,
     until,
     today,
-    tomorrow,
     price,
     country,
     size
@@ -73,7 +72,6 @@ function Header(props) {
   };
 
   const getDateValue = (date) => {
-    console.log(since);
     return date === "" ? "" : date.toISOString().substr(0, 10);
   };
 

@@ -58,6 +58,8 @@ class HotelContainer extends React.Component {
   };
 
   handleDateChange = (limit, value) => {
+    console.log(limit);
+
     if (limit === "since") {
       if (this.state.until === "") {
         let until = new Date(value);
@@ -75,6 +77,11 @@ class HotelContainer extends React.Component {
           )
         });
       }
+    } else if (limit === "until" && this.state.since === "") {
+      this.setState({
+        until: new Date(value),
+        since: new Date()
+      });
     } else {
       this.setState({
         ...this.state,
