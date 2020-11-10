@@ -29,7 +29,7 @@ h6 {
 }
 
 .date-picker {
-  color: #fff;
+  background-color: white;
 }
 
 .country-picker {
@@ -48,10 +48,19 @@ h6 {
 .info-paper {
   padding: 8px;
   margin: 8px;
+  border-radius: 3px;
+}
+
+.info-icon {
+  background-color: #209cee;
+  padding: 5px 10px;
+  fill: white;
+  border-radius: 5px 0 0 5px;
 }
 
 .money-paper {
   background-color: #209cee;
+  height: 1.1275rem;
 }
 
 .money {
@@ -92,4 +101,20 @@ h6 {
 .envoltorio input,
 .envoltorio select {
   border: none;
+}
+
+.no-results {
+  margin-top: 25px;
+  background-color: salmon;
+}
+
+.no-results h2,
+.sad-face {
+  color: white;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.sad-face {
+  font-size: 8rem;
 }

@@ -53,11 +53,13 @@ function HotelCard(props) {
             elevation={2}
           >
             <LocationOnIcon
-              style={{
-                background: "#209cee",
-                padding: "5px 10px",
-                fill: "white"
-              }}
+              // style={{
+              //   background: "#209cee",
+              //   padding: "5px 10px",
+              //   fill: "white",
+              // borderRadius: "5px 0 0 5px"
+              // }}
+              className="info-icon"
             />
             <span className="filters-text">
               {city}, {country}
@@ -77,11 +79,12 @@ function HotelCard(props) {
               elevation={2}
             >
               <LocalHotelIcon
-                style={{
-                  background: "#209cee",
-                  padding: "5px 10px",
-                  fill: "white"
-                }}
+                // style={{
+                //   background: "#209cee",
+                //   padding: "5px 10px",
+                //   fill: "white"
+                // }}
+                className="info-icon"
               />
               <span className="filters-text">
                 {rooms} {rooms > 1 ? " Habitaciones" : " Habitación"}

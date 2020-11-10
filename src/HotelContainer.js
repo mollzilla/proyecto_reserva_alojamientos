@@ -22,7 +22,8 @@ class HotelContainer extends React.Component {
     country: "any",
     price: "any",
     size: "any",
-    selectedHotels: null
+    selectedHotels: null,
+    empty: false
   };
 
   getSizeFilter = (x) => {
@@ -100,7 +101,7 @@ class HotelContainer extends React.Component {
               <HotelCard hotel={hotel} key={i} />
             </Grid>
           ))}
-          {!this.getHotelsFilter().length && (
+          {this.getHotelsFilter().length === 0 && (
             <Grid item xs={12}>
               <EmptySearch />
             </Grid>

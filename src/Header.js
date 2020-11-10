@@ -73,6 +73,7 @@ function Header(props) {
   };
 
   const getDateValue = (date) => {
+    console.log(since);
     return date === "" ? "" : date.toISOString().substr(0, 10);
   };
 
@@ -90,17 +91,13 @@ function Header(props) {
             id="since"
             name="since"
             type="date"
-            inputProps={
-              ({ min: getDateValue(today) },
-              { style: { backgroundColor: "white" } })
-            }
+            inputProps={{ min: getDateValue(today) }}
             className={"date-picker"}
             InputLabelProps={{
               shrink: true
             }}
             format="dd/MM/YYYY"
             margin="dense"
-            // value={since.toISOString().substring(0, 10)}
             value={getDateValue(since)}
             onChange={(e) => {
               handleDateChange("since", `${e.target.value}T00:00:00-03:00`);
@@ -113,16 +110,12 @@ function Header(props) {
             id="until"
             name="until"
             type="date"
-            inputProps={
-              ({
-                min: since === "" ? getDateValue(today) : getDateValue(since)
-              },
-              { style: { backgroundColor: "white" } })
-            } // pasarlo a tomorrow
+            inputProps={{
+              min: since === "" ? getDateValue(today) : getDateValue(since)
+            }}
             className={"date-picker"}
             InputLabelProps={{
               shrink: true
-              // className: 'date-picker'
             }}
             format="dd/MM/yyyy"
             margin="dense"
