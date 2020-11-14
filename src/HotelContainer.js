@@ -75,6 +75,19 @@ class HotelContainer extends React.Component {
     this.getHotelsFilter();
   };
 
+  handleResetFilter = () => {
+    this.setState({
+      since: null,
+      until: null,
+      country: "any",
+      price: "any",
+      size: "any",
+      selectedHotels: hotelsData,
+      empty: false,
+      validInterval: true
+    });
+  };
+
   render() {
     console.log(this.state.since, this.state.until);
     return (
@@ -82,11 +95,13 @@ class HotelContainer extends React.Component {
         <Header
           handleFieldChange={this.handleFieldChange}
           handleDateChange={this.handleDateChange}
+          handleResetFilter={this.handleResetFilter}
           since={this.state.since}
           until={this.state.until}
           today={today}
           tomorrow={this.tomorrow}
           size={this.state.size}
+          price={this.state.price}
           country={this.state.country}
         />
 

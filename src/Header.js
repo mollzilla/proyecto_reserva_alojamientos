@@ -6,14 +6,15 @@ import { Select } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import InputIcon from "@material-ui/icons/Input";
+import DeleteIcon from "@material-ui/icons/Delete";
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import PublicIcon from "@material-ui/icons/Public";
 import { esLocale } from "date-fns/locale/";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import addDays from "date-fns/addDays";
 import { setHours } from "date-fns";
-import { es } from "date-fns/locale";
-import { ParseDate } from "date-fns";
-import { format } from "date-fns";
+import Button from "@material-ui/core/Button";
 
 // var setHours = require("date-fns/set_hours");
 
@@ -21,6 +22,7 @@ function Header(props) {
   const {
     handleDateChange,
     handleFieldChange,
+    handleResetFilter,
     since,
     until,
     price,
@@ -47,7 +49,6 @@ function Header(props) {
   };
 
   const getSizeString = () => {
-    console.log(size);
     return size === "any" ? "De cualquier tamaño" : `De tamaño ${size}`;
   };
 
@@ -56,7 +57,7 @@ function Header(props) {
   };
 
   const getPriceString = () => {
-    switch (price) {
+    switch (parseInt(price, 10)) {
       case 1:
         return "De precio económico";
       case 2:
@@ -75,17 +76,16 @@ function Header(props) {
       <Box className="header" color="white" bgcolor="#01d0b1">
         <h1>Hoteles</h1>
         <h3>
-          Hoteles
-          {getDateString(since, until)}
-          {getSizeString()} {getCountryString()}
-          {getPriceString()}
+          {getDateString(since, until)}.<br />
+          {getCountryString()}.<br />
+          {getPriceString()}.<br />
+          {getSizeString()}.<br />
         </h3>
       </Box>
       <Box className="params-header" color="white" bgcolor="#209CEE">
         <form className="params-form" noValidate>
           <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
             <div className="input-outline">
-              <i className="material-icons">output</i>
               <InputIcon
                 color="disabled"
                 className="in-out-icon"
@@ -100,10 +100,7 @@ function Header(props) {
                 emptyLabel="Cualquier fecha"
                 value={since}
                 onChange={(date) => {
-                  // setDate(new Date(date).setHours(0,0,0,0))
-                  // console.log(date);
                   handleDateChange("since", setHours(date, 0));
-                  // handleChange(date); //`${date}T00:00:00-03:00`);
                 }}
               />
             </div>
@@ -124,10 +121,7 @@ function Header(props) {
                 emptyLabel="Cualquier fecha"
                 value={until}
                 onChange={(date) => {
-                  // setDate(new Date(date).setHours(0,0,0,0))
-                  // console.log(date);
                   handleDateChange("until", setHours(date, 0));
-                  // handleChange(date); //`${date}T00:00:00-03:00`);
                 }}
               />
             </div>
@@ -190,7 +184,7 @@ function Header(props) {
           </FormControl>
 
           <FormControl className="price-picker" margin="dense">
-            <InputLabel id="demo-simple-select-label"></InputLabel>
+            <InputLabel id="price-label"></InputLabel>
             <Select
               style={{ backgroundColor: "white" }}
               variant="outlined"
@@ -203,11 +197,21 @@ function Header(props) {
               onChange={(e) => handleFieldChange("size", e.target.value)}
             >
               <MenuItem value={"any"}>Cualquier tamaño</MenuItem>
-              <MenuItem value={"small"}>Pequeño</MenuItem>
-              <MenuItem value={"medium"}>Mediano</MenuItem>
-              <MenuItem value={"large"}>Grande</MenuItem>
+              <MenuItem value={"Pequeño"}>Pequeño</MenuItem>
+              <MenuItem value={"Mediano"}>Mediano</MenuItem>
+              <MenuItem value={"Grande"}>Grande</MenuItem>
             </Select>
           </FormControl>
+
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleResetFilter}
+            // className={classes.button}
+            startIcon={<DeleteIcon />}
+          >
+            Limpiar filtros
+          </Button>
         </form>
       </Box>
     </header>
