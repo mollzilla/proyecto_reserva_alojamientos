@@ -24,7 +24,7 @@ h6 {
 .params-form {
   width: 100%;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-evenly;
   width: 100%;
 }
@@ -136,19 +136,22 @@ h6 {
 .date-picker {
   background-color: white;
   border-radius: 4px;
-  height: 36px;
+  height: 37px;
+  margin-top: 3px;
   border: 1px solid gainsboro;
 }
 .MuiInput-underline {
-  padding: 5px;
+  /* padding: 5px; */
+  /* padding-bottom: 5px; */
   padding-left: 55px;
-  &:before {
-    border: 0 !important;
-  }
+}
 
-  &:after {
-    border: 0;
-  }
+.MuiInput-underline:after {
+  border: 0;
+}
+
+.MuiInput-underline:before {
+  border: 0 !important;
 }
 
 .MuiPickersToolbar-toolbar {

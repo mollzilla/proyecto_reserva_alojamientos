@@ -86,6 +86,8 @@ class HotelContainer extends React.Component {
           until={this.state.until}
           today={today}
           tomorrow={this.tomorrow}
+          size={this.state.size}
+          country={this.state.country}
         />
 
         {this.getHotelsFilter().length > 0 ? (

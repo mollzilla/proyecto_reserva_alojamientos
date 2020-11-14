@@ -28,45 +28,45 @@ function Header(props) {
     size
   } = props;
 
-  const daysOfWeek = [
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
-    "Domingo"
-  ];
-  const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre"
-  ];
+  let options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
 
   const getDateString = (since, until) => {
     if (since && until) {
-      return `Desde el ${daysOfWeek[since.getDay()]} ${since.getDate()} ${
-        months[since.getMonth()]
-      } de ${since.getFullYear()} hasta  el ${
-        daysOfWeek[until.getDay()]
-      } ${until.getDate()} de ${
-        months[until.getMonth()]
-      } de ${until.getFullYear()}`;
-    } else if (since) {
-      return `Desde el ${daysOfWeek[since.getDay()]} ${since.getDate()} ${
-        months[since.getMonth()]
-      } de ${since.getFullYear()}`;
+      return `desde el ${since.toLocaleDateString(
+        "es-ES",
+        options
+      )} hasta el ${until.toLocaleDateString("es-ES", options)}`;
     } else {
-      return `Cualquier fecha`;
+      return `en cualquier fecha`;
+    }
+  };
+
+  const getSizeString = () => {
+    console.log(size);
+    return size === "any" ? "de cualquier tamaño" : `de tamaño ${size}`;
+  };
+
+  const getCountryString = () => {
+    return `en ${country === "any" ? "cualquier país" : country}`;
+  };
+
+  const getPriceString = () => {
+    switch (price) {
+      case 1:
+        return "económico";
+      case 2:
+        return "mediano";
+      case 3:
+        return "costoso";
+      case 4:
+        return "muy costoso";
+      default:
+        return "de cualquier precio";
     }
   };
 
@@ -74,12 +74,16 @@ function Header(props) {
     <header>
       <Box className="header" color="white" bgcolor="#01d0b1">
         <h1>Hoteles</h1>
-        <h3>{getDateString(since, until)}</h3>
+        <h3>
+          Hoteles {getDateString(since, until)} {getSizeString()}{" "}
+          {getCountryString()}
+        </h3>
       </Box>
       <Box className="params-header" color="white" bgcolor="#209CEE">
         <form className="params-form" noValidate>
           <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
             <div className="input-outline">
+              <i className="material-icons">output</i>
               <InputIcon
                 color="disabled"
                 className="in-out-icon"
