@@ -37,36 +37,36 @@ function Header(props) {
 
   const getDateString = (since, until) => {
     if (since && until) {
-      return `desde el ${since.toLocaleDateString(
+      return `Desde el ${since.toLocaleDateString(
         "es-ES",
         options
       )} hasta el ${until.toLocaleDateString("es-ES", options)}`;
     } else {
-      return `en cualquier fecha`;
+      return `En cualquier fecha`;
     }
   };
 
   const getSizeString = () => {
     console.log(size);
-    return size === "any" ? "de cualquier tamaño" : `de tamaño ${size}`;
+    return size === "any" ? "De cualquier tamaño" : `De tamaño ${size}`;
   };
 
   const getCountryString = () => {
-    return `en ${country === "any" ? "cualquier país" : country}`;
+    return `En ${country === "any" ? "cualquier país" : country}`;
   };
 
   const getPriceString = () => {
     switch (price) {
       case 1:
-        return "económico";
+        return "De precio económico";
       case 2:
-        return "mediano";
+        return "De precio mediano";
       case 3:
-        return "costoso";
+        return "De precio costoso";
       case 4:
-        return "muy costoso";
+        return "De precio muy costoso";
       default:
-        return "de cualquier precio";
+        return "De cualquier precio";
     }
   };
 
@@ -75,8 +75,10 @@ function Header(props) {
       <Box className="header" color="white" bgcolor="#01d0b1">
         <h1>Hoteles</h1>
         <h3>
-          Hoteles {getDateString(since, until)} {getSizeString()}{" "}
-          {getCountryString()}
+          Hoteles
+          {getDateString(since, until)}
+          {getSizeString()} {getCountryString()}
+          {getPriceString()}
         </h3>
       </Box>
       <Box className="params-header" color="white" bgcolor="#209CEE">
