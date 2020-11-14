@@ -4,10 +4,9 @@ import { hotelsData, today } from "./data";
 import Header from "./Header";
 import HotelCard from "./HotelCard";
 import EmptySearch from "./EmptySearch";
-// import Container from "@material-ui/core/Container";
 import { Container } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-// import Grid from "@material-ui/core/Grid";
+import addDays from "date-fns/addDays";
 
 class HotelContainer extends React.Component {
   /// hotel Container recibe como props data y al ser el padre es la unica fuente de la verdad, de ahi la pasa al header y al grid
@@ -22,8 +21,9 @@ class HotelContainer extends React.Component {
     country: "any",
     price: "any",
     size: "any",
-    selectedHotels: null,
-    empty: false
+    selectedHotels: hotelsData,
+    empty: false,
+    validInterval: true
   };
 
   getSizeFilter = (x) => {
@@ -48,69 +48,35 @@ class HotelContainer extends React.Component {
           : this.state.since.valueOf() >= x.availabilityFrom &&
             this.state.until.valueOf() <= x.availabilityTo;
 
-      console.log(dateFilter);
       return dateFilter && priceFilter && countryFilter && sizeFilter;
     });
   };
 
   handleFieldChange = (name, value) => {
     this.setState({ ...this.state, [name]: value });
-  };
-
-  handleDateChange = (limit, value) => {
-    console.log(limit, value);
-    this.setState({
-      ...this.state,
-      [limit]: value
-    });
-    console.log(value.valueOf());
     this.getHotelsFilter();
   };
 
-  getDateFilter = () => {
-    if (!this.state.since || !this.state.until) {
-    }
+  handleDateChange = (limit, value) => {
+    let newSince = limit === "since" ? value : this.state.since;
+    let newUntil = limit === "until" ? value : this.state.until;
+    if (
+      this.state.since &&
+      this.state.until &&
+      newSince.valueOf() >= newUntil.valueOf()
+    )
+      newUntil = addDays(newSince, 1);
 
-    if (this.state.until) console.log("hay until");
-    else console.log("ho hay until");
+    this.setState({
+      since: newSince,
+      until: newUntil
+    });
+
+    this.getHotelsFilter();
   };
 
-  // handleDateChange = (limit, value) => {
-  //   if (limit === "since") {
-  //     console.log(value)
-  //     if (this.state.until === "") {
-  //       let until = new Date(value);
-  //       this.setState({
-  //         [limit]: new Date(value),
-  //         until: new Date(until.setDate(new Date(value).getDate() + 1))
-  //       });
-  //     } else if (
-  //       new Date(value).getTime() > new Date(this.state.until).getTime()
-  //     ) {
-  //       console.log(value.valueOf());
-  //       console.log(this.state.until.valueOf());
-  //       console.log(new Date(this.state.until).valueOf());
-  //       this.setState({
-  //         [limit]: new Date(value),
-  //         until: new Date(
-  //           this.state.until.setDate(new Date(value).getDate() + 1)
-  //         )
-  //       });
-  //     }
-  //   } else if (limit === "until" && this.state.since === "") {
-  //     this.setState({
-  //       until: new Date(value),
-  //       since: new Date()
-  //     });
-  //   } else {
-  //     this.setState({
-  //       ...this.state,
-  //       [limit]: new Date(value)
-  //     });
-  //   }
-  // };
-
   render() {
+    console.log(this.state.since, this.state.until);
     return (
       <Container>
         <Header
@@ -122,21 +88,37 @@ class HotelContainer extends React.Component {
           tomorrow={this.tomorrow}
         />
 
-        <Grid container spacing={8}>
-          {this.getHotelsFilter().map((hotel, i) => (
-            <Grid item xs={12} sm={4} key={i}>
-              <HotelCard hotel={hotel} key={i} />
-            </Grid>
-          ))}
-          {this.getHotelsFilter().length === 0 && (
-            <Grid item xs={12}>
-              <EmptySearch />
-            </Grid>
-          )}
-        </Grid>
+        {this.getHotelsFilter().length > 0 ? (
+          <Grid container>
+            {this.getHotelsFilter().map((hotel, i) => (
+              <Grid item xs={12} sm={4} key={i}>
+                <HotelCard hotel={hotel} key={i} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <div>
+            <EmptySearch />
+          </div>
+        )}
       </Container>
     );
   }
 }
+
+// {this.getHotelsFilter().map((hotel, i) => (
+//   <Grid container spacing={8}>
+//     <Grid item xs={12} sm={4} key={i}>
+//       <HotelCard hotel={hotel} key={i} />
+//     </Grid>
+//   </Grid>
+// ))}
+// {this.getHotelsFilter().length === 0 && (
+//   <Grid container spacing={8}>
+//     <Grid item xs={12}>
+//       <EmptySearch />
+//     </Grid>
+//   </Grid>
+// )}
 
 export default HotelContainer;

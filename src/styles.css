@@ -1,6 +1,6 @@
 * {
   font-family: "Roboto", sans-serif;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 h1,
@@ -50,13 +50,15 @@ h6 {
   padding: 8px;
   margin: 8px;
   border-radius: 3px;
+  padding: 20px 10px;
 }
 
 .info-icon {
   background-color: #209cee;
-  padding: 20px 10px;
   fill: white;
   border-radius: 5px 0 0 5px;
+  /* height: 40px; */
+  padding: 10px;
 }
 
 .money-paper {
@@ -106,7 +108,7 @@ h6 {
 
 .no-results {
   margin-top: 25px;
-  background-color: salmon;
+  background-color: salmon !important;
 }
 
 .no-results h2,
@@ -118,4 +120,37 @@ h6 {
 
 .sad-face {
   font-size: 8rem;
+}
+
+.input-outline {
+  position: relative;
+}
+
+.in-out-icon {
+  position: absolute;
+  left: 10px;
+  top: 3px;
+  z-index: 1000;
+}
+
+.date-picker {
+  background-color: white;
+  border-radius: 4px;
+  height: 36px;
+  border: 1px solid gainsboro;
+}
+.MuiInput-underline {
+  padding: 5px;
+  padding-left: 55px;
+  &:before {
+    border: 0 !important;
+  }
+
+  &:after {
+    border: 0;
+  }
+}
+
+.MuiPickersToolbar-toolbar {
+  background-color: #209cee !important;
 }

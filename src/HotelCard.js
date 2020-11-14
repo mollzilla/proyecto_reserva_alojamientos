@@ -82,7 +82,8 @@ function HotelCard(props) {
                 // style={{
                 //   background: "#209cee",
                 //   padding: "5px 10px",
-                //   fill: "white"
+                //   fill: "white",
+                //   size: "large"
                 // }}
                 className="info-icon"
               />

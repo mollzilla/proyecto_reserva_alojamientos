@@ -1,18 +1,21 @@
 import React from "react";
 import { FormControl } from "@material-ui/core";
-// import InputLabel from "@material-ui/core/InputLabel";
 import { InputLabel } from "@material-ui/core";
-// import MenuItem from "@material-ui/core/MenuItem";
 import { MenuItem } from "@material-ui/core";
 import { Select } from "@material-ui/core";
-import { TextField } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import InputIcon from "@material-ui/icons/Input";
-import esLocale from "date-fns/locale/es";
+import { esLocale } from "date-fns/locale/";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { KeyboardDatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import addDays from "date-fns/addDays";
+import { setHours } from "date-fns";
+import { es } from "date-fns/locale";
+import { ParseDate } from "date-fns";
+import { format } from "date-fns";
+
+// var setHours = require("date-fns/set_hours");
 
 function Header(props) {
   const {
@@ -20,7 +23,6 @@ function Header(props) {
     handleFieldChange,
     since,
     until,
-    today,
     price,
     country,
     size
@@ -62,24 +64,10 @@ function Header(props) {
     } else if (since) {
       return `Desde el ${daysOfWeek[since.getDay()]} ${since.getDate()} ${
         months[since.getMonth()]
-      } de ${since.getFullYear()} hasta  el ${
-        daysOfWeek[since.getDay()]
-      } ${since.getDate()} de ${
-        months[since.getMonth()]
       } de ${since.getFullYear()}`;
     } else {
       return `Cualquier fecha`;
     }
-  };
-
-  const getDateValue = (date) => {
-    // return date === "" ? "" : date.toISOString().substr(0, 10);
-    return date;
-  };
-
-  let from = new Date();
-  const handleChange = (date) => {
-    from = date;
   };
 
   return (
@@ -108,7 +96,7 @@ function Header(props) {
                 onChange={(date) => {
                   // setDate(new Date(date).setHours(0,0,0,0))
                   // console.log(date);
-                  handleDateChange("since", date);
+                  handleDateChange("since", setHours(date, 0));
                   // handleChange(date); //`${date}T00:00:00-03:00`);
                 }}
               />
@@ -125,13 +113,14 @@ function Header(props) {
                 locale="es"
                 autoOk
                 disablePast
+                minDate={addDays(since, 1)}
                 format="dd/MM/yyyy"
                 emptyLabel="Cualquier fecha"
                 value={until}
                 onChange={(date) => {
                   // setDate(new Date(date).setHours(0,0,0,0))
                   // console.log(date);
-                  handleDateChange("until", date);
+                  handleDateChange("until", setHours(date, 0));
                   // handleChange(date); //`${date}T00:00:00-03:00`);
                 }}
               />
