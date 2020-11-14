@@ -210,7 +210,7 @@ function Header(props) {
             // className={classes.button}
             startIcon={<DeleteIcon />}
           >
-            Limpiar filtros
+            Limpiar
           </Button>
         </form>
       </Box>
