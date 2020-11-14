@@ -7,11 +7,12 @@ import { MenuItem } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { Box } from "@material-ui/core";
-// import Select from "@material-ui/core/Select";
-// import TextField from "@material-ui/core/TextField";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Box from "@material-ui/core/Box";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import InputIcon from "@material-ui/icons/Input";
+import esLocale from "date-fns/locale/es";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { KeyboardDatePicker } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 function Header(props) {
   const {
@@ -72,7 +73,13 @@ function Header(props) {
   };
 
   const getDateValue = (date) => {
-    return date === "" ? "" : date.toISOString().substr(0, 10);
+    // return date === "" ? "" : date.toISOString().substr(0, 10);
+    return date;
+  };
+
+  let from = new Date();
+  const handleChange = (date) => {
+    from = date;
   };
 
   return (
@@ -83,45 +90,53 @@ function Header(props) {
       </Box>
       <Box className="params-header" color="white" bgcolor="#209CEE">
         <form className="params-form" noValidate>
-          <TextField
-            style={{ fill: "white" }}
-            variant="outlined"
-            id="since"
-            name="since"
-            type="date"
-            inputProps={{ min: getDateValue(today) }}
-            className={"date-picker"}
-            InputLabelProps={{
-              shrink: true
-            }}
-            format="dd/MM/YYYY"
-            margin="dense"
-            value={getDateValue(since)}
-            onChange={(e) => {
-              handleDateChange("since", `${e.target.value}T00:00:00-03:00`);
-            }}
-          />
+          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+            <div className="input-outline">
+              <InputIcon
+                color="disabled"
+                className="in-out-icon"
+                fontSize="large"
+              />
+              <DatePicker
+                className="date-picker"
+                locale="es"
+                autoOk
+                disablePast
+                format="dd/MM/yyyy"
+                emptyLabel="Cualquier fecha"
+                value={since}
+                onChange={(date) => {
+                  // setDate(new Date(date).setHours(0,0,0,0))
+                  // console.log(date);
+                  handleDateChange("since", date);
+                  // handleChange(date); //`${date}T00:00:00-03:00`);
+                }}
+              />
+            </div>
 
-          <TextField
-            style={{ fill: "white" }}
-            variant="outlined"
-            id="until"
-            name="until"
-            type="date"
-            inputProps={{
-              min: since === "" ? getDateValue(today) : getDateValue(since)
-            }}
-            className={"date-picker"}
-            InputLabelProps={{
-              shrink: true
-            }}
-            format="dd/MM/yyyy"
-            margin="dense"
-            value={getDateValue(until)}
-            onChange={(e) => {
-              handleDateChange("until", `${e.target.value}T00:00:00-03:00`);
-            }}
-          />
+            <div className="input-outline">
+              <InputIcon
+                color="disabled"
+                className="in-out-icon"
+                fontSize="large"
+              />
+              <DatePicker
+                className="date-picker"
+                locale="es"
+                autoOk
+                disablePast
+                format="dd/MM/yyyy"
+                emptyLabel="Cualquier fecha"
+                value={until}
+                onChange={(date) => {
+                  // setDate(new Date(date).setHours(0,0,0,0))
+                  // console.log(date);
+                  handleDateChange("until", date);
+                  // handleChange(date); //`${date}T00:00:00-03:00`);
+                }}
+              />
+            </div>
+          </MuiPickersUtilsProvider>
 
           <FormControl className="country-picker" margin="dense">
             <Select

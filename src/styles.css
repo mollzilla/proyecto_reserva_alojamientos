@@ -1,5 +1,6 @@
 * {
   font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
 }
 
 h1,
@@ -53,14 +54,14 @@ h6 {
 
 .info-icon {
   background-color: #209cee;
-  padding: 5px 10px;
+  padding: 20px 10px;
   fill: white;
   border-radius: 5px 0 0 5px;
 }
 
 .money-paper {
   background-color: #209cee;
-  height: 1.1275rem;
+  padding: 9px 10px;
 }
 
 .money {

@@ -17,8 +17,8 @@ class HotelContainer extends React.Component {
 
   state = {
     cosas: "the single source of truth",
-    since: "",
-    until: "",
+    since: null,
+    until: null,
     country: "any",
     price: "any",
     size: "any",
@@ -42,14 +42,14 @@ class HotelContainer extends React.Component {
       let countryFilter =
         this.state.country !== "any" ? x.country === this.state.country : true;
       let sizeFilter = this.getSizeFilter(x);
+      let dateFilter =
+        !this.state.since || !this.state.until
+          ? true
+          : this.state.since.valueOf() >= x.availabilityFrom &&
+            this.state.until.valueOf() <= x.availabilityTo;
 
-      return (
-        x.availabilityFrom > this.state.since.valueOf() &&
-        x.availabilityTo > this.state.until.valueOf() &&
-        priceFilter &&
-        countryFilter &&
-        sizeFilter
-      );
+      console.log(dateFilter);
+      return dateFilter && priceFilter && countryFilter && sizeFilter;
     });
   };
 
@@ -58,37 +58,57 @@ class HotelContainer extends React.Component {
   };
 
   handleDateChange = (limit, value) => {
-    console.log(limit);
-
-    if (limit === "since") {
-      if (this.state.until === "") {
-        let until = new Date(value);
-        this.setState({
-          [limit]: new Date(value),
-          until: new Date(until.setDate(new Date(value).getDate() + 1))
-        });
-      } else if (
-        new Date(value).valueOf() > new Date(this.state.until).valueOf()
-      ) {
-        this.setState({
-          [limit]: new Date(value),
-          until: new Date(
-            this.state.until.setDate(new Date(value).getDate() + 1)
-          )
-        });
-      }
-    } else if (limit === "until" && this.state.since === "") {
-      this.setState({
-        until: new Date(value),
-        since: new Date()
-      });
-    } else {
-      this.setState({
-        ...this.state,
-        [limit]: new Date(value)
-      });
-    }
+    console.log(limit, value);
+    this.setState({
+      ...this.state,
+      [limit]: value
+    });
+    console.log(value.valueOf());
+    this.getHotelsFilter();
   };
+
+  getDateFilter = () => {
+    if (!this.state.since || !this.state.until) {
+    }
+
+    if (this.state.until) console.log("hay until");
+    else console.log("ho hay until");
+  };
+
+  // handleDateChange = (limit, value) => {
+  //   if (limit === "since") {
+  //     console.log(value)
+  //     if (this.state.until === "") {
+  //       let until = new Date(value);
+  //       this.setState({
+  //         [limit]: new Date(value),
+  //         until: new Date(until.setDate(new Date(value).getDate() + 1))
+  //       });
+  //     } else if (
+  //       new Date(value).getTime() > new Date(this.state.until).getTime()
+  //     ) {
+  //       console.log(value.valueOf());
+  //       console.log(this.state.until.valueOf());
+  //       console.log(new Date(this.state.until).valueOf());
+  //       this.setState({
+  //         [limit]: new Date(value),
+  //         until: new Date(
+  //           this.state.until.setDate(new Date(value).getDate() + 1)
+  //         )
+  //       });
+  //     }
+  //   } else if (limit === "until" && this.state.since === "") {
+  //     this.setState({
+  //       until: new Date(value),
+  //       since: new Date()
+  //     });
+  //   } else {
+  //     this.setState({
+  //       ...this.state,
+  //       [limit]: new Date(value)
+  //     });
+  //   }
+  // };
 
   render() {
     return (
