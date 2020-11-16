@@ -157,3 +157,7 @@ h6 {
 .MuiPickersToolbar-toolbar {
   background-color: #209cee !important;
 }
+
+.photo {
+  width: 100%;
+}

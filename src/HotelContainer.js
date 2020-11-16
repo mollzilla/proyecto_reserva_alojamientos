@@ -89,7 +89,6 @@ class HotelContainer extends React.Component {
   };
 
   render() {
-    console.log(this.state.since, this.state.until);
     return (
       <Container>
         <Header
