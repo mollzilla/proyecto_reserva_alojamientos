@@ -25,7 +25,7 @@ function HotelCard(props) {
     price
   } = props.hotel;
   return (
-    <Card width="50">
+    <Card width="50" className="hotel-card">
       <CardActionArea>
         <Grid item xs={12}>
           <Paper className="info-paper" elevation={0}>
