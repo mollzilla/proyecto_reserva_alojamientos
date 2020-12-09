@@ -7,16 +7,12 @@ import { Box } from "@material-ui/core";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import InputIcon from "@material-ui/icons/Input";
 import DeleteIcon from "@material-ui/icons/Delete";
-import DateRangeIcon from "@material-ui/icons/DateRange";
-import PublicIcon from "@material-ui/icons/Public";
 import { esLocale } from "date-fns/locale/";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import addDays from "date-fns/addDays";
 import { setHours } from "date-fns";
 import Button from "@material-ui/core/Button";
-
-// var setHours = require("date-fns/set_hours");
 
 function Header(props) {
   const {

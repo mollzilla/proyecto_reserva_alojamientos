@@ -5,7 +5,7 @@ import { Grid } from "@material-ui/core";
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
 
 function EmptySearch() {
-  // console.log("mili")
+
   return (
     <div width="50">
       <Grid item xs={12}>

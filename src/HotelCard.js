@@ -4,7 +4,6 @@ import { Card } from "@material-ui/core";
 import { CardActions } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -47,15 +46,7 @@ function HotelCard(props) {
             style={{ display: "flex", alignItems: "center", padding: 0 }}
             elevation={2}
           >
-            <LocationOnIcon
-              // style={{
-              //   background: "#209cee",
-              //   padding: "5px 10px",
-              //   fill: "white",
-              // borderRadius: "5px 0 0 5px"
-              // }}
-              className="info-icon"
-            />
+            <LocationOnIcon className="info-icon" />
             <span className="filters-text">
               {city}, {country}
             </span>
@@ -73,15 +64,7 @@ function HotelCard(props) {
               }}
               elevation={2}
             >
-              <LocalHotelIcon
-                // style={{
-                //   background: "#209cee",
-                //   padding: "5px 10px",
-                //   fill: "white",
-                //   size: "large"
-                // }}
-                className="info-icon"
-              />
+              <LocalHotelIcon className="info-icon" />
               <span className="filters-text">
                 {rooms} {rooms > 1 ? " Habitaciones" : " Habitación"}
               </span>
