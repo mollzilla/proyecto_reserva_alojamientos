@@ -19,21 +19,11 @@ class HotelContainer extends React.Component {
     price: "any",
     size: "any",
     selectedHotels: hotelsData,
-    empty: false,
     validInterval: true
   };
 
   render() {
-    const {
-      since,
-      until,
-      country,
-      price,
-      size,
-      selectedHotels,
-      empty,
-      validInterval
-    } = this.state;
+    const { since, until, country, price, size } = this.state;
 
     const getSizeFilter = (x) => {
       let sizeFilter = true;
@@ -44,18 +34,18 @@ class HotelContainer extends React.Component {
     };
 
     const getHotelsFilter = () => {
-      return hotelsData.filter((x) => {
-        let priceFilter = price !== "any" ? x.price === price : true;
-        let countryFilter = country !== "any" ? x.country === country : true;
-        let sizeFilter = getSizeFilter(x);
-        let dateFilter =
+      return hotelsData
+        .filter((hotel) => (price !== "any" ? hotel.price === price : true))
+        .filter((hotel) =>
+          country !== "any" ? hotel.country === country : true
+        )
+        .filter((hotel) => getSizeFilter(hotel))
+        .filter((hotel) =>
           !since || !until
             ? true
-            : since.valueOf() >= x.availabilityFrom &&
-              until.valueOf() <= x.availabilityTo;
-
-        return dateFilter && priceFilter && countryFilter && sizeFilter;
-      });
+            : since.valueOf() >= hotel.availabilityFrom &&
+              until.valueOf() <= hotel.availabilityTo
+        );
     };
 
     const handleFieldChange = (name, value) => {

@@ -203,7 +203,6 @@ function Header(props) {
             variant="contained"
             color="secondary"
             onClick={handleResetFilter}
-            // className={classes.button}
             startIcon={<DeleteIcon />}
           >
             Limpiar
