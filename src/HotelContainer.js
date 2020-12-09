@@ -27,9 +27,9 @@ class HotelContainer extends React.Component {
 
     const getSizeFilter = (x) => {
       let sizeFilter = true;
-      if (size === "large") sizeFilter = x.rooms > 20;
-      else if (size === "medium") sizeFilter = x.rooms > 10 && x.rooms < 21;
-      else if (size === "small") sizeFilter = x.rooms < 11;
+      if (size === "Grande") sizeFilter = x.rooms > 20;
+      else if (size === "Mediano") sizeFilter = x.rooms > 10 && x.rooms < 21;
+      else if (size === "Pequeño") sizeFilter = x.rooms < 11;
       return sizeFilter;
     };
 
@@ -50,7 +50,7 @@ class HotelContainer extends React.Component {
 
     const handleFieldChange = (name, value) => {
       this.setState({ ...this.state, [name]: value });
-      this.getHotelsFilter();
+      getHotelsFilter();
     };
 
     const handleDateChange = (limit, value) => {
@@ -64,7 +64,7 @@ class HotelContainer extends React.Component {
         until: newUntil
       });
 
-      this.getHotelsFilter();
+      getHotelsFilter();
     };
 
     const handleResetFilter = () => {
